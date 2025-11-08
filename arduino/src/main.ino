@@ -1,9 +1,12 @@
+#include <Arduino.h>
 #include "DFRobot_Heartrate.h"
 
 DFRobot_Heartrate heartrate(DIGITAL_MODE);
 
 void setup() {
   Serial.begin(115200);
+
+
 }
 
 void loop() {
@@ -14,4 +17,7 @@ void loop() {
     Serial.println(rateValue);
   }
   delay(20);
+
+
+
 }
