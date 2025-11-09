@@ -1,6 +1,3 @@
-"""
-Basic connection example.
-"""
 import os
 import redis
 
@@ -12,3 +9,6 @@ r = redis.Redis(
     password=os.getenv('REDIS_PASSWORD'),
 )
 
+def write2redis(jsonline):
+    for key, value in jsonline.items():
+        r.set(key, value)
