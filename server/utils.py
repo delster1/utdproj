@@ -18,7 +18,7 @@ async def monitor_sensors(model, memory, interval=5):
                 score = anomaly_score(recon, x).mean().item()
 
             memory.add_entry(sensor, score, values, datetime.now(timezone.utc))
-            if score > 0.3:  # adjust threshold
+            if score > 0.1:  # adjust threshold
                 print(f"🚨 Detected anomaly in {sensor}: {score:.4f}")
                 # Trigger the agent to analyze context
                 agent.invoke({"input": f"Analyze {sensor} with anomaly score {score}"})
