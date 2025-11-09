@@ -42,8 +42,7 @@ nav a:hover {
 /* ===== Dashboard Section ===== */
 main {
     padding: 2rem;
-    display: flex;    
-    grid-template-columns: 1fr 2fr;
+    display: flex;
     gap: 2rem;
 }
 
@@ -86,7 +85,6 @@ main {
     color: #1e293b;
 }
 
-
 /* ===== Employee List Panel ===== */
 #employee-list {
     background-color: white;
@@ -105,17 +103,20 @@ main {
 
 /* Each clickable employee name */
 .employee-item {
+    display: block;
     padding: 0.75rem 1rem;
     border-radius: 6px;
     margin-bottom: 0.5rem;
     background-color: #f8fafc;
+    text-decoration: none;
+    color: #0f172a;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    text-decoration: underline;
+    transition: background-color 0.2s, transform 0.1s, color 0.2s;
 }
 
 .employee-item:hover {
     background-color: #e2e8f0;
+    color: #1d4ed8;
     transform: translateX(2px);
 }
 
@@ -129,15 +130,16 @@ main {
     border-left: 4px solid #3b82f6;
 }
 
+/* ===== Employee Status Table ===== */
 #employee-status {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding: 1.5rem;
     text-align: center;
-    margin: 0 auto;
-    width: fit-content;
-    height: auto;
+    margin: 2rem auto;
+    width: 80%;
+    max-width: 600px;
 }
 
 #employee-status h2 {
@@ -145,6 +147,7 @@ main {
     color: #1e293b;
 }
 
+/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -160,6 +163,10 @@ th, td {
 th {
     background-color: #f1f5f9;
     color: #1e293b;
+}
+
+td {
+    color: #334155;
 }
 
 /* ===== Status Colors ===== */
@@ -184,27 +191,6 @@ th {
 .status.danger {
     background-color: #ef4444; /* red */
 }
-/* Table for readings */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-th {
-    background-color: #f1f5f9;
-    color: #1e293b;
-}
-
-td {
-    color: #334155;
-}
 
 /* ===== Footer ===== */
 footer {
@@ -218,6 +204,7 @@ footer {
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
     main {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
 }
+
