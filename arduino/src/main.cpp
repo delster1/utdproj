@@ -11,7 +11,7 @@ void loop() {
   heartrate.getValue(A1);
   rateValue = heartrate.getRate();
   if(rateValue){
-    Serial.println(rateValue);
+    Serial.println("Heartrate:" + String(rateValue));
   }
   delay(20);
 }
