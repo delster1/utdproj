@@ -6,6 +6,7 @@ DFRobot_Heartrate heartrate(DIGITAL_MODE);
 DFRobot_LIS2DH12 acce(&Wire, 0x18);
 Adafruit_DRV2605 vib;
 uint8_t rateValue;
+bool vibrating = false;
 
 
 void setup() {
@@ -17,14 +18,12 @@ void setup() {
   }
   vib.begin();
   vib.setMode(DRV2605_MODE_REALTIME);
-
-  
 }
 
 void loop() {
   // Heart Rate
   
-  heartrate.getValue(A1);
+  heartrate.getValue(A2);
   rateValue = heartrate.getRate();
   if(rateValue){
     Serial.println("HeartRate:" + rateValue);
@@ -54,14 +53,21 @@ void loop() {
   Serial.flush();
 
   // Vibrator
-  vib.setRealtimeValue(128); // val between 0 and 255 (or maybe 128 and 255?)
+  if (Serial.available() > 0) {
+    String input = Serial.readStringUntil('\n');
+    input.trim();
+    Serial.println(input);
+    if (input == "START"){
+      vib.setRealtimeValue(128); // val between 0 and 255 (or maybe 128 and 255?)
+      vibrating = true;
+      delay(1000);
+    }
+  }
+
+  //button
+  if (digitalRead(4) == LOW && vibrating) {
+    vib.setRealtimeValue(0);
+    vibrating = false;
+  }
   delay(20);
-  vib.setRealtimeValue(0);
-  delay(100);
-
-
-  delay(20);
-
-
-
 }
