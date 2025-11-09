@@ -42,7 +42,7 @@ nav a:hover {
 /* ===== Dashboard Section ===== */
 main {
     padding: 2rem;
-    display: grid;
+    display: flex;    
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
 }
@@ -134,7 +134,8 @@ main {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding: 1.5rem;
     text-align: center;
-    width: auto;
+    margin: 0 auto;
+    width: fit-content;
     height: auto;
 }
 
