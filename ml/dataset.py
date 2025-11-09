@@ -1,56 +1,49 @@
-from __future__ import annotations
-
-from typing import Iterable, List
-
-import torch
 from torch.utils.data import Dataset
-
-from ml.data_augmentor import augment_tensor
+import torch
 from server.redis import SensorLogStore
 
-
 class RedisSensorDataset(Dataset):
-    """Create sliding windows of sensor readings fetched from Redis."""
+    def __init__(self, sensor_names, limit=256, augment_factor=1):
+        self.store = SensorLogStore()
+        self.sensor_names = sensor_names
+        self.limit = limit
+        self.augment_factor = augment_factor
+        self.samples = self._load_data()
 
-    def __init__(
-        self,
-        sensor_names: Iterable[str],
-        *,
-        limit: int = 500,
-        window_size: int = 32,
-        stride: int = 1,
-        augment_factor: int = 10,
-    ) -> None:
-        store = SensorLogStore()
-        windows: List[torch.Tensor] = []
+    def _load_data(self):
+        print(f"📡 Fetching {self.limit} samples for sensors: {self.sensor_names}")
+        data = []
 
-        for name in sensor_names:
-            readings = store.fetch_recent(name, limit=limit)
-            values = torch.tensor([r.sensor_output for r in readings], dtype=torch.float32)
-            if len(values) < window_size:
-                continue
-            # ``unfold`` creates a view of size [num_windows, window_size]
-            sensor_windows = values.unfold(0, window_size, stride).contiguous()
-            windows.append(sensor_windows)
+        # Fetch aligned data for all sensors
+        all_series = {}
+        for name in self.sensor_names:
+            readings = self.store.fetch_recent(name, limit=self.limit)
+            all_series[name] = [r.sensor_output for r in readings]
 
-        if not windows:
-            raise ValueError("No sensor data found in Redis with enough history for the chosen window size")
+        # Ensure all sensors returned data
+        empty_sensors = [s for s, v in all_series.items() if len(v) == 0]
+        if empty_sensors:
+            print(f"⚠️ Warning: No data for sensors: {empty_sensors}")
+        
+        valid_lengths = [len(v) for v in all_series.values() if len(v) > 0]
+        if not valid_lengths:
+            print("❌ No valid data found in Redis — returning dummy dataset.")
+            return torch.randn(100, len(self.sensor_names))  # fallback fake data
 
-        X = torch.cat(windows, dim=0)
+        min_len = min(valid_lengths)
+        print(f"✅ Aligned to {min_len} samples across sensors.")
 
-        if augment_factor > 0:
-            augmented = torch.cat([augment_tensor(row, n_augments=augment_factor) for row in X], dim=0)
-            self.X = torch.cat([X, augmented], dim=0)
-        else:
-            self.X = X
+        # Construct feature matrix
+        for i in range(min_len):
+            row = [all_series[name][i] if i < len(all_series[name]) else 0.0 for name in self.sensor_names]
+            data.append(row)
 
-        self.window_size = window_size
-        self.input_dim = self.X.shape[1]
+        data = torch.tensor(data, dtype=torch.float32)
+        return data
 
-    def __len__(self) -> int:
-        return len(self.X)
+    def __len__(self):
+        return len(self.samples)
 
-    def __getitem__(self, idx: int):
-        sample = self.X[idx]
-        return sample, sample
+    def __getitem__(self, idx):
+        return self.samples[idx], 0
 

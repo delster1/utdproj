@@ -15,39 +15,32 @@ def _build_mlp(dims: Sequence[int]) -> nn.Sequential:
     layers = []
     for in_features, out_features in zip(dims[:-1], dims[1:]):
         layers.append(nn.Linear(in_features, out_features))
-        # Skip the activation on the final layer – the caller decides.
-        if out_features != dims[-1]:
-            layers.append(nn.ReLU())
     return nn.Sequential(*layers)
 
 
+
 class AutoEncoder(nn.Module):
-    """A compact autoencoder that adapts to the dimensionality of the data."""
-
-    def __init__(self, input_dim: int, hidden_dims: Iterable[int] | None = None) -> None:
+    def __init__(self):
         super().__init__()
-        if input_dim <= 0:
-            raise ValueError("input_dim must be a positive integer")
+        self.encoder = nn.Sequential(
+            nn.Linear(5, 8),
+            nn.ReLU(),
+            nn.Linear(8, 4),
+            nn.ReLU(),
+            nn.Linear(4, 2)   # latent bottleneck
+        )
+        self.decoder = nn.Sequential(
+            nn.Linear(2, 4),
+            nn.ReLU(),
+            nn.Linear(4, 8),
+            nn.ReLU(),
+            nn.Linear(8, 5)
+        )
 
-        if hidden_dims is None:
-            # Create a small pyramid that halves the dimensionality at each step.
-            hidden_dims = []
-            width = input_dim
-            while width > 3:
-                width = max(width // 2, 2)
-                hidden_dims.append(width)
-            if not hidden_dims:
-                hidden_dims = [max(input_dim // 2, 1)]
-        else:
-            hidden_dims = [int(d) for d in hidden_dims if int(d) > 0]
-            if not hidden_dims:
-                raise ValueError("hidden_dims must contain positive integers")
+    def forward(self, x):
+        z = self.encoder(x)
+        return self.decoder(z)
 
-        encoder_dims = [input_dim, *hidden_dims]
-        decoder_dims = [hidden_dims[-1], *reversed(hidden_dims[:-1]), input_dim]
-
-        self.encoder = _build_mlp(encoder_dims)
-        self.decoder = _build_mlp(decoder_dims)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:  # noqa: D401 - standard forward
         """Encode ``x`` into the latent space and reconstruct it."""
@@ -59,7 +52,9 @@ class AutoEncoder(nn.Module):
 def reconstruction_loss(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     """Mean squared reconstruction error used for training and scoring."""
 
-    return torch.mean((pred - target) ** 2)
+    mse = torch.mean((pred - target) ** 2)
+    mae = torch.mean(torch.abs(pred - target))
+    return mse + 0.1 * mae
 
 
 @dataclass
