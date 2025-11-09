@@ -12,9 +12,15 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
+<<<<<<< HEAD
             "executable": "/Users/thomas/Code/HackUTD/arduino/.pio/build/uno/firmware.elf",
             "projectEnvName": "uno",
             "toolchainBinDir": "/Users/thomas/.platformio/packages/toolchain-atmelavr/bin",
+=======
+            "executable": "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/.pio/build/uno/firmware.elf",
+            "projectEnvName": "uno",
+            "toolchainBinDir": "C:/Users/natha/.platformio/packages/toolchain-atmelavr/bin",
+>>>>>>> 9feffc1 (arduino + data)
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
                 "type": "PlatformIO",
@@ -25,18 +31,30 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
+<<<<<<< HEAD
             "executable": "/Users/thomas/Code/HackUTD/arduino/.pio/build/uno/firmware.elf",
             "projectEnvName": "uno",
             "toolchainBinDir": "/Users/thomas/.platformio/packages/toolchain-atmelavr/bin",
+=======
+            "executable": "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/.pio/build/uno/firmware.elf",
+            "projectEnvName": "uno",
+            "toolchainBinDir": "C:/Users/natha/.platformio/packages/toolchain-atmelavr/bin",
+>>>>>>> 9feffc1 (arduino + data)
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
+<<<<<<< HEAD
             "executable": "/Users/thomas/Code/HackUTD/arduino/.pio/build/uno/firmware.elf",
             "projectEnvName": "uno",
             "toolchainBinDir": "/Users/thomas/.platformio/packages/toolchain-atmelavr/bin",
+=======
+            "executable": "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/.pio/build/uno/firmware.elf",
+            "projectEnvName": "uno",
+            "toolchainBinDir": "C:/Users/natha/.platformio/packages/toolchain-atmelavr/bin",
+>>>>>>> 9feffc1 (arduino + data)
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
         }

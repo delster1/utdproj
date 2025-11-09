@@ -8,6 +8,7 @@
         {
             "name": "PlatformIO",
             "includePath": [
+<<<<<<< HEAD
                 "/Users/thomas/Code/HackUTD/arduino/include",
                 "/Users/thomas/Code/HackUTD/arduino/src",
                 "/Users/thomas/Code/HackUTD/arduino/lib/DFRobot_LIS2DH12/include",
@@ -24,11 +25,27 @@
                 "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+=======
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/include",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/src",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_LIS2DH12",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/variants/standard",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_BusIO",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_DRV2605L",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_Heartrate",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+>>>>>>> 9feffc1 (arduino + data)
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
+<<<<<<< HEAD
                     "/Users/thomas/Code/HackUTD/arduino/include",
                     "/Users/thomas/Code/HackUTD/arduino/src",
                     "/Users/thomas/Code/HackUTD/arduino/lib/DFRobot_LIS2DH12/include",
@@ -45,11 +62,30 @@
                     "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+=======
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/include",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/src",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_LIS2DH12",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_BusIO",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_DRV2605L",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_Heartrate",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+>>>>>>> 9feffc1 (arduino + data)
                     ""
                 ]
             },
             "defines": [
+<<<<<<< HEAD
                 "PLATFORMIO=60116",
+=======
+                "PLATFORMIO=60118",
+>>>>>>> 9feffc1 (arduino + data)
                 "ARDUINO_AVR_UNO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
@@ -59,7 +95,11 @@
             ],
             "cStandard": "gnu11",
             "cppStandard": "gnu++11",
+<<<<<<< HEAD
             "compilerPath": "/Users/thomas/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+=======
+            "compilerPath": "C:/Users/natha/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+>>>>>>> 9feffc1 (arduino + data)
             "compilerArgs": [
                 "-mmcu=atmega328p",
                 ""
