@@ -1,0 +1,221 @@
+/* ===== General Page Layout ===== */
+body {
+    align-items: center;
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+header {
+    background-color: #de6be9;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Dashboard Section ===== */
+main {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+/* Sidebar showing employee info */
+#employee-info {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+}
+
+#employee-info h2 {
+    margin-top: 0;
+    color: #1e293b;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #64748b;
+}
+
+.info-value {
+    color: #0f172a;
+}
+
+/* Sensor data display */
+#sensor-data {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+}
+
+#sensor-data h2 {
+    margin-top: 0;
+    color: #1e293b;
+}
+
+
+/* ===== Employee List Panel ===== */
+#employee-list {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#employee-list h2 {
+    margin-top: 0;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+/* Each clickable employee name */
+.employee-item {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    background-color: #f8fafc;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.employee-item:hover {
+    background-color: #e2e8f0;
+    transform: translateX(2px);
+}
+
+.employee-item:active {
+    background-color: #cbd5e1;
+}
+
+/* Optional active/selected style */
+.employee-item.active {
+    background-color: #dbeafe;
+    border-left: 4px solid #3b82f6;
+}
+
+#employee-status {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    text-align: center;
+    width: auto;
+    height: auto;
+}
+
+#employee-status h2 {
+    text-align: center;
+    color: #1e293b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+/* ===== Status Colors ===== */
+.status {
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+}
+
+.status.normal {
+    background-color: #22c55e; /* green */
+}
+
+.status.warning {
+    background-color: #facc15; /* yellow */
+    color: #000;
+}
+
+.status.danger {
+    background-color: #ef4444; /* red */
+}
+/* Table for readings */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+td {
+    color: #334155;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #de6be9;
+    color: white;
+    margin-top: 2rem;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+}
