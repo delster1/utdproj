@@ -13,6 +13,10 @@ log_store = SensorLogStore()
 def hp() -> str:
     return "<h1>hello world</h1>"
 
+@app.route("/vibrate")
+def vibrate() -> str:
+    out = jsonify("anomaly_detected : false")  
+    return out 
 
 @app.route("/receive", methods=["POST"])
 def process_json():

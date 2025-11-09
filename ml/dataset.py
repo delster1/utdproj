@@ -1,7 +1,7 @@
 import torch
 from torch.utils.data import Dataset
 from server.redis import SensorLogStore
-from ml.data_augmentation import augment_tensor
+from ml.data_augmentor import augment_tensor
 
 class RedisSensorDataset(Dataset):
     def __init__(self, sensor_names, limit=500, augment_factor=10):
@@ -9,6 +9,7 @@ class RedisSensorDataset(Dataset):
         samples = []
 
         for name in sensor_names:
+            print(name)
             readings = store.fetch_recent(name, limit=limit)
             vals = [r.sensor_output for r in readings]
             if len(vals) > 0:
