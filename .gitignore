@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+arduino/.pio/build/*
+server/__pycache__/*
+arduino/.vscode/extensions.json
