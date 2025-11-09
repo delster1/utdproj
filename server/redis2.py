@@ -1,5 +1,5 @@
 """Utility helpers for reading and writing sensor logs in Redis.
-
+2
 The module wraps basic Redis operations so that other parts of the
 codebase can store structured sensor readings without having to worry
 about Redis-specific commands.  It exposes a small `SensorLogStore`
@@ -130,6 +130,19 @@ def reading_from_dict(payload: dict) -> SensorReading:
         sensor_output=float(payload["sensor_output"]),
         timestamp=datetime.now(timezone.utc),
     )
+
+def get_latest_sensor_data(limit=6):
+
+    sensor_names = ["HeartRate", "Temperature", "AccelX", "AccelY", "AccelZ"]
+    store = SensorLogStore()
+    my_json = {}
+
+    for sensor_name in sensor_names:
+        readings = store.fetch_recent(sensor_name, limit=limit)
+        values = [r.sensor_output for r in readings]
+        my_json[sensor_name] = values  # store as array of floats
+
+    return json.dumps({"sensor_outputs": my_json})
 
 
 __all__ = [

@@ -8,7 +8,7 @@ import torch
 from langchain.tools import tool
 
 from ml.model import AutoEncoder, reconstruction_loss
-from server.redis import SensorLogStore
+from server.redis2 import SensorLogStore
 
 
 MODEL_PATH = Path("ml/autoencoder.pth")

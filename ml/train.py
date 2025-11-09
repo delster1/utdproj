@@ -13,7 +13,7 @@ MODEL_PATH = Path("ml/autoencoder.pth")
 
 
 def train() -> None:
-    cfg = TrainingConfig(epochs=40, batch_size=64)
+    cfg = TrainingConfig(epochs=4000, batch_size=64)
     dataset = RedisSensorDataset(
         ["HeartRate", "temp", "AccelX", "AccelY", "AccelZ"],
         limit=301,

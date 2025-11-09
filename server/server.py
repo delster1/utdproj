@@ -1,10 +1,13 @@
 """Flask application that receives sensor readings and stores them in Redis."""
 from __future__ import annotations
 
+import subprocess
+from ml.rag_agent import main as start_rag_agent
+
 from flask import Flask, jsonify, request
 import os
 
-from server.redis import SensorLogStore, reading_from_dict
+from server.redis2 import SensorLogStore, reading_from_dict, get_latest_sensor_data
 
 app = Flask(__name__)
 log_store = SensorLogStore()
@@ -15,10 +18,15 @@ def hp() -> str:
     return "<h1>hello world</h1>"
 
 @app.route("/vibrate")
-def vibrate() -> str:
+def vibrate() :
 
-    out = jsonify({"anomaly_detected" : f"{os.getenv("ANOMALY_STATUS")}"}) 
-    return out 
+    return jsonify({"anomaly_detected" : f"{os.getenv("ANOMALY_STATUS")}"}) , 200
+
+@app.route("/data")
+def get_data():
+    return get_latest_sensor_data()
+
+
 
 @app.route("/receive", methods=["POST"])
 def process_json():
@@ -50,4 +58,18 @@ def process_json():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    rag_proc = subprocess.Popen(
+    ["python", "-m", "ml.rag_agent"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    print(f"✅ Started RAG agent with PID {rag_proc.pid}")
+
+    try:
+        # 🚦 Run Flask app (blocking)
+        app.run(host="0.0.0.0", port=5000, debug=True)
+    finally:
+        # 💀 When Flask stops, also stop the RAG agent
+        print("🛑 Shutting down RAG agent...")
+        rag_proc.terminate()
+        rag_proc.wait(timeout=5)

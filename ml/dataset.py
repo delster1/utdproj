@@ -6,7 +6,7 @@ import torch
 from torch.utils.data import Dataset
 
 from ml.data_augmentor import augment_tensor
-from server.redis import SensorLogStore
+from server.redis2 import SensorLogStore
 
 
 class RedisSensorDataset(Dataset):
