@@ -208,3 +208,23 @@ footer {
     }
 }
 
+.status {
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.status.normal {
+    background-color: #22c55e; /* green */
+}
+
+.status.warning {
+    background-color: #facc15; /* yellow */
+    color: black;
+}
+
+.status.danger {
+    background-color: #ef4444; /* red */
+}

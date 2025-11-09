@@ -51,3 +51,65 @@ document.addEventListener("DOMContentLoaded", () => {
     tbody.innerHTML = "";
     rows.forEach(row => tbody.appendChild(row));
 });
+document.addEventListener("DOMContentLoaded", async () => {
+    const tableBody = document.getElementById("sensor-table-body");
+
+    try {
+        // Fetch live data from your endpoint
+        const response = await fetch("http://vibrator.d3llie.tech/data");
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        const data = await response.json();
+        console.log("Fetched data:", data);
+
+        // Clear table
+        tableBody.innerHTML = "";
+
+        // Loop through each reading (assuming array of objects)
+        data.forEach((reading) => {
+            const { Temp, HeartRate, AccelX, AccelY, AccelZ } = reading;
+
+            // Determine status
+            let statusText = "Normal";
+            let statusClass = "normal";
+
+            if (HeartRate > 100 || Temp > 38) {
+                statusText = "Danger";
+                statusClass = "danger";
+            } else if (HeartRate > 85 || Temp > 37.5) {
+                statusText = "Warning";
+                statusClass = "warning";
+            }
+
+            // Create row
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${Temp.toFixed(2)}</td>
+                <td>${HeartRate.toFixed(2)}</td>
+                <td>(${AccelX.toFixed(2)}, ${AccelY.toFixed(2)}, ${AccelZ.toFixed(2)})</td>
+                <td class="status ${statusClass}">${statusText}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        tableBody.innerHTML = `<tr><td colspan="4">Error loading data</td></tr>`;
+    }
+});
+document.addEventListener("DOMContentLoaded", () => {
+    // Check if the employee-name element exists (so it only runs on the right page)
+    const nameElement = document.getElementById("employee-name");
+    if (nameElement) {
+        // Get the 'name' parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const employeeName = urlParams.get("name");
+
+        if (employeeName) {
+            nameElement.textContent = employeeName;
+        } else {
+            nameElement.textContent = "Unknown Employee";
+        }
+    }
+});

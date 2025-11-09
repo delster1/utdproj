@@ -6,7 +6,7 @@
     <meta name="description" content="Employee Sensor Monitoring Portal" />
     <title>Employee Sensor Portal</title>
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
+    <script defer src="coolstuff.js"></script>
 </head>
 
 <body>
@@ -24,9 +24,8 @@
         <section id="employee-list">
             <h2>Employee Information</h2>
             
-            <div class="info-item">
-                <span class="info-label">Name:</span>
-                <span class="info-value">Alex Johnson</span>
+            <div class="info-item"><span class="info-label">Name:</span>
+                <span class="info-value" id="employee-name">Loading...</span>
             </div>
 
             <div class="info-item">
@@ -36,10 +35,8 @@
 
             <div class="info-item">
                 <span class="info-label">Sensor Type:</span>
-                <span class="info-value">Body Temp, Heart Rate & Acceleration </span>
+                <span class="info-value">Body Temp, Heart Rate & Acceleration</span>
             </div>
-
-        
         </section>
 
         <!-- Sensor Data Section -->
@@ -49,7 +46,6 @@
             <table>
                 <thead>
                     <tr>
-                        
                         <th>Temperature (°C)</th>
                         <th>Heart Rate (BPM)</th>
                         <th>Acceleration</th>
@@ -58,25 +54,7 @@
                 </thead>
                 <tbody id="sensor-table-body">
                     <tr>
-                        
-                        <td>36.6</td>
-                        <td>72</td>
-                        <td>(x,y,z)</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        
-                        <td>36.7</td>
-                        <td>74</td>
-                        <td>(x,y,z)</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        
-                        <td>37.0</td>
-                        <td>80</td>
-                        <td>(x,y,z)</td>
-                        <td>Normal</td>
+                        <td colspan="4" style="text-align:center;">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
