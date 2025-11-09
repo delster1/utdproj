@@ -1,6 +1,6 @@
-import serial
 import json 
 import requests
+import serial
 
 def serial_to_JSON(data):
     try:
@@ -25,4 +25,5 @@ def main() -> None:
         else:
             jsonline = serial_to_JSON(line)
         requests.post("http://utd.d3llie.tech/recieve", json=jsonline)
+        
 main()
