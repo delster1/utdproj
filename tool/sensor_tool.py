@@ -64,7 +64,12 @@ def detect_anomalies(sensor_name: str, limit: int = 128) -> str:
         reconstruction = model(batch)
         loss = reconstruction_loss(reconstruction, batch).item()
 
-    status = "⚠️ anomaly detected" if loss > DEFAULT_THRESHOLD else "✅ normal"
+    if loss > DEFAULT_THRESHOLD:
+        status = "⚠️ anomaly detected" 
+        os.environ["ANOMALY_STATUS"] = "1"
+    else:
+        os.environ["ANOMALY_STATUS"] = "0"
+        status = "✅ normal"
     latest_timestamp = readings[-1].timestamp
     if latest_timestamp.tzinfo is None:
         latest_timestamp = latest_timestamp.replace(tzinfo=timezone.utc)

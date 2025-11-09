@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from flask import Flask, jsonify, request
+import os
 
 from server.redis import SensorLogStore, reading_from_dict
 
@@ -15,7 +16,8 @@ def hp() -> str:
 
 @app.route("/vibrate")
 def vibrate() -> str:
-    out = jsonify("anomaly_detected : false")  
+
+    out = jsonify({"anomaly_detected" : f"{os.getenv("ANOMALY_STATUS")}"}) 
     return out 
 
 @app.route("/receive", methods=["POST"])
