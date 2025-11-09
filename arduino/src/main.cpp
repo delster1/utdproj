@@ -80,7 +80,7 @@ void loop() {
       
     }
   }
-  //Fallback demo code w/o serial
+  // //Fallback demo code w/o serial
   // if (vibrating == false) {
   //   vib.setRealtimeValue(0); // val between 0 and 255 (or maybe 128 and 255?)
   //   vibrating = true;
