@@ -50,13 +50,15 @@ class SensorReading:
         return json.dumps(payload)
 
     @classmethod
-    def from_json(cls, payload: str) -> "SensorReading":
+    def from_json( cls, payload: str, sensor_name : str) -> "SensorReading":
         """Restore a :class:`SensorReading` from its JSON representation."""
         data = json.loads(payload)
-        timestamp = datetime.fromisoformat(data["timestamp"]).astimezone(timezone.utc)
+        print(f"DATA: {data}")
+        # timestamp = datetime.fromisoformat(data["timestamp"]).astimezone(timezone.utc)
+        timestamp = datetime.now()
         return cls(
-            sensor_name=data["sensor_name"],
-            sensor_output=float(data["sensor_output"]),
+            sensor_name=sensor_name,
+            sensor_output=float(data),
             timestamp=timestamp,
         )
 
@@ -73,7 +75,7 @@ class SensorLogStore:
         self,
         redis_client: Optional["redis.Redis"] = None,
         *,
-        namespace: str = "sensor_logs",
+        namespace: str = "",
     ) -> None:
         self._redis = redis_client or create_redis_client()
         self._namespace = namespace
@@ -82,7 +84,7 @@ class SensorLogStore:
     # Redis connection helpers
     # ------------------------------------------------------------------
     def _key(self, sensor_name: str) -> str:
-        return f"{self._namespace}:{sensor_name}"
+        return f"{self._namespace}{sensor_name}"
 
     def fetch_recent(self, sensor_name: str, limit: int = 256) -> List[SensorReading]:
         """Return the most recent readings for ``sensor_name``.
@@ -94,8 +96,11 @@ class SensorLogStore:
         limit:
             Maximum number of readings to return.
         """
+        for key in self._redis.scan_iter("user:*"):
+            print(key)
         raw_entries = self._redis.lrange(self._key(sensor_name), 0, limit - 1)
-        readings = [SensorReading.from_json(entry.decode("utf-8")) for entry in raw_entries]
+        print(raw_entries)
+        readings = [SensorReading.from_json( entry.decode("utf-8"), sensor_name) for entry in raw_entries]
         # Redis returns items in reverse chronological order because we push to
         # the head of the list.  Reverse them so downstream code sees
         # chronological sequences.
@@ -106,11 +111,11 @@ def create_redis_client() -> "redis.Redis":
     """Create a Redis client using environment variables for configuration."""
 
     host = os.getenv("REDIS_HOST", "localhost")
-    port = int(os.getenv("REDIS_PORT", "10392"))
+    port = int(os.getenv("REDIS_PORT", "6379"))
     db = int(os.getenv("REDIS_DB", "0"))
     password = os.getenv("REDIS_PASSWORD")
 
-    return redis.Redis(host=host, port=port, db=db, password=password, decode_responses=False)
+    return redis.Redis(host=host, port=port, db=db, password=password, decode_responses=False, username="default")
 
 
 def reading_from_dict(payload: dict) -> SensorReading:

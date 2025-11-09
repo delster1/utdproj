@@ -5,7 +5,7 @@ from ml.dataset import RedisSensorDataset
 
 def train():
     cfg = TrainingConfig(epochs=40, batch_size=64)
-    dataset = RedisSensorDataset(["heart_rate", "temperature", "accel"], limit=300, augment_factor=20)
+    dataset = RedisSensorDataset(["HeartRate", "temp", "AccelX","AccelY","AccelZ"], limit=301, augment_factor=20)
     loader = DataLoader(dataset, batch_size=cfg.batch_size, shuffle=True)
 
     model = AutoEncoder()
@@ -14,6 +14,7 @@ def train():
     for epoch in range(cfg.epochs):
         total_loss = 0
         for x, _ in loader:
+            print("Input batch shape:", x.shape)
             pred = model(x)
             loss = reconstruction_loss(pred, x)
             optimizer.zero_grad()

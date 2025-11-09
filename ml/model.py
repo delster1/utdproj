@@ -13,7 +13,7 @@ class AutoEncoder(nn.Module):
     def __init__(self):
         super().__init__()
         self.encoder = nn.Sequential(
-            nn.Linear(3, 8),
+            nn.Linear(4, 8),
             nn.ReLU(),
             nn.Linear(8, 4),
             nn.ReLU(),
@@ -24,15 +24,15 @@ class AutoEncoder(nn.Module):
             nn.ReLU(),
             nn.Linear(4, 8),
             nn.ReLU(),
-            nn.Linear(8, 3)
+            nn.Linear(8, 4),
         )
 
     def forward(self, x):
         z = self.encoder(x)
         return self.decoder(z)
 
-    def reconstruction_loss(pred, target):
-        return torch.mean((pred - target) ** 2)
+def reconstruction_loss(pred, target):
+    return torch.mean((pred - target) ** 2)
 
 
 @dataclass
@@ -41,7 +41,7 @@ class TrainingConfig:
 
     learning_rate: float = 1e-3
     weight_decay: float = 1e-4
-    epochs: int = 10
+    epochs: int = 100
     batch_size: int = 64
 
 
