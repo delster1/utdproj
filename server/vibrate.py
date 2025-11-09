@@ -20,5 +20,3 @@ def ping_server(url):
         return value
     else:
         raise RuntimeError("talking to the server issues")
-
-

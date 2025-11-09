@@ -6,7 +6,11 @@
     <meta name="description" content="Employee Sensor Monitoring Portal" />
     <title>Employee Sensor Portal</title>
     <link rel="stylesheet" href="styles.css" />
+<<<<<<< HEAD
     <script defer src="script.js"></script>
+=======
+    <script defer src="coolstuff.js"></script>
+>>>>>>> frontend
 </head>
 
 <body>
@@ -15,9 +19,6 @@
         <nav>
             <ul>
                 <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="#">Employees</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Settings</a></li>
             </ul>
         </nav>
     </header>
@@ -27,14 +28,9 @@
         <section id="employee-list">
             <h2>Employee Information</h2>
             
-            <div class="info-item">
-                <span class="info-label">Name:</span>
-                <span class="info-value">Alex Johnson</span>
-            </div>
 
-            <div class="info-item">
-                <span class="info-label">ID:</span>
-                <span class="info-value">E-1023</span>
+            <div class="info-item"><span class="info-label">Name:</span>
+                <span class="info-value" id="employee-name">Loading...</span>
             </div>
 
             <div class="info-item">
@@ -50,6 +46,7 @@
             <div class="info-item">
                 <span class="info-label">Last Updated:</span>
                 <span class="info-value" id="last-updated">10:15 AM</span>
+                <span class="info-value">Body Temp, Heart Rate & Acceleration</span>
             </div>
         </section>
 
@@ -60,30 +57,17 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Timestamp</th>
+
                         <th>Temperature (°C)</th>
                         <th>Heart Rate (BPM)</th>
+                        <th>Acceleration</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="sensor-table-body">
                     <tr>
-                        <td>10:00 AM</td>
-                        <td>36.6</td>
-                        <td>72</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <td>10:05 AM</td>
-                        <td>36.7</td>
-                        <td>74</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <td>10:10 AM</td>
-                        <td>37.0</td>
-                        <td>80</td>
-                        <td>Active</td>
+
+                        <td colspan="4" style="text-align:center;">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
