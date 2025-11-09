@@ -17,7 +17,7 @@ def serial_to_JSON(data):
 
 def main():
     '''RUN AND READ HERE'''
-    ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
+    ser = serial.Serial("/dev/ttyACM0", 115200, timeout=1)
     while True:
         line = ser.readline().decode("utf-8").strip()
         if not line:
