@@ -75,7 +75,6 @@ def detect_anomalies(sensor_name: str, limit: int = 128) -> str:
         f"reconstruction_error={loss:.4f}, status={status}"
     )
 
-
 @tool("sensor_data_retriever")
 def sensor_data_retriever(sensor_name: str, limit: int = 10) -> str:
     """Return a compact table with the latest sensor readings."""
