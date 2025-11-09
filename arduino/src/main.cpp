@@ -25,47 +25,47 @@ void setup() {
 
 void loop() {
 
-  // // Heart Rate
-  // heartrate.getValue(A2);
-  // rateValue = heartrate.getRate();
-  // if (rateValue == 0){
-  //   if (!heartRateStarted) {
-  //     Serial.println("HeartRate:NULL");
-  //   }
-  //   else {
-  //     Serial.print("HeartRate:");
-  //     Serial.println(prevRateValue);
+  // Heart Rate
+  heartrate.getValue(A2);
+  rateValue = heartrate.getRate();
+  if (rateValue == 0){
+    if (!heartRateStarted) {
+      Serial.println("HeartRate:NULL");
+    }
+    else {
+      Serial.print("HeartRate:");
+      Serial.println(prevRateValue);
       
-  //   }
-  // }
-  // else {
-  //   Serial.print("HeartRate:");
-  //   Serial.println(rateValue);
-  //   prevRateValue = rateValue;
-  //   heartRateStarted = 1;
-  // }
+    }
+  }
+  else {
+    Serial.print("HeartRate:");
+    Serial.println(rateValue);
+    prevRateValue = rateValue;
+    heartRateStarted = 1;
+  }
     
   
-  // Serial.flush();
+  Serial.flush();
 
-  // // Accel
-  // AccelReading accelReading;
-  // accelReading = readGyro(acce);
-  // Serial.print("AccelX:");
-  // Serial.println(accelReading.x);
-  // Serial.print("AccelY:");
-  // Serial.println(accelReading.y);
-  // Serial.print("AccelZ:");
-  // Serial.println(accelReading.z);
+  // Accel
+  AccelReading accelReading;
+  accelReading = readGyro(acce);
+  Serial.print("AccelX:");
+  Serial.println(accelReading.x);
+  Serial.print("AccelY:");
+  Serial.println(accelReading.y);
+  Serial.print("AccelZ:");
+  Serial.println(accelReading.z);
 
-  // // Temp
-  // uint16_t val;
-  // double dat;
-  // val=analogRead(A0);//Connect LM35 on Analog 0
-  // dat = (double) val * (5/10.24);
-  // Serial.print("Temp:"); //Display the temperature on Serial monitor
-  // Serial.println(dat);
-  // Serial.flush();
+  // Temp
+  uint16_t val;
+  double dat;
+  val=analogRead(A0);//Connect LM35 on Analog 0
+  dat = (double) val * (5/10.24);
+  Serial.print("Temp:"); //Display the temperature on Serial monitor
+  Serial.println(dat);
+  Serial.flush();
 
   // Vibrator
   if (Serial.available() > 0) {
