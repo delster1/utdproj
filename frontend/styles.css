@@ -111,6 +111,7 @@ main {
     background-color: #f8fafc;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
+    text-decoration: underline;
 }
 
 .employee-item:hover {
@@ -208,10 +209,10 @@ td {
 /* ===== Footer ===== */
 footer {
     text-align: center;
-    padding: 1rem;
+    padding: 2.5rem;
     background-color: #de6be9;
     color: white;
-    margin-top: 2rem;
+    margin-top: 6rem;
 }
 
 /* ===== Responsive Design ===== */
