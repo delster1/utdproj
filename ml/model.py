@@ -5,33 +5,34 @@ from dataclasses import dataclass
 from typing import Iterable, Tuple
 
 import torch
-from torch import nn
+from torch import nn, optim
+from torchvision import datasets, transforms
+import matplotlib.pyplot as plt
 
-
-class SensorPredictor(nn.Module):
-    """A lightweight feed-forward network for sequence forecasting.
-
-    The model receives a vector of ``window_size`` consecutive readings and
-    predicts the next reading.  Two fully-connected hidden layers keep the
-    network easy to train on commodity GPUs while still being expressive enough
-    to model gradual sensor drift.
-    """
-
-    def __init__(self, window_size: int, hidden_size: int = 64) -> None:
+class AutoEncoder(nn.Module):
+    def __init__(self):
         super().__init__()
-        self.window_size = window_size
-        self.hidden_size = hidden_size
-
-        self.net = nn.Sequential(
-            nn.Linear(window_size, hidden_size),
+        self.encoder = nn.Sequential(
+            nn.Linear(3, 8),
             nn.ReLU(),
-            nn.Linear(hidden_size, hidden_size // 2),
+            nn.Linear(8, 4),
             nn.ReLU(),
-            nn.Linear(hidden_size // 2, 1),
+            nn.Linear(4, 2)   # latent bottleneck
+        )
+        self.decoder = nn.Sequential(
+            nn.Linear(2, 4),
+            nn.ReLU(),
+            nn.Linear(4, 8),
+            nn.ReLU(),
+            nn.Linear(8, 3)
         )
 
-    def forward(self, features: torch.Tensor) -> torch.Tensor:  # pragma: no cover - trivial wrapper
-        return self.net(features)
+    def forward(self, x):
+        z = self.encoder(x)
+        return self.decoder(z)
+
+    def reconstruction_loss(pred, target):
+        return torch.mean((pred - target) ** 2)
 
 
 @dataclass
