@@ -17,7 +17,7 @@ def main():
         if jsonline:
             write2redis(jsonline)
             
-        ser = serial.Serial("/dev/ttyACM1", 11520, timeout=1)
+        ser = serial.Serial("/dev/ttyAMA0", 11520, timeout=1)
         time.sleep(2)
         
         server_comf = ping_server("http://vibrator.d3llie.tech/vibrate")

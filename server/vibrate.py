@@ -22,19 +22,3 @@ def ping_server(url):
         raise RuntimeError("talking to the server issues")
 
 
-
-def main():
-    ser = serial.Serial("/dev/ttyACM1", 11520, timeout=1)
-    time.sleep(2)
-    
-    while True:
-        server_comf = ping_server("http://vibrator.d3llie.tech/vibrate")
-        if server_comf:
-            print("YAYYY IT WORKED")
-            start_vibes(ser)
-            time.sleep(2)
-        else:
-            print("It fr fr worked")
-            pass
-
-main()
