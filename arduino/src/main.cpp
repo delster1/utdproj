@@ -7,8 +7,7 @@ DFRobot_LIS2DH12 acce(&Wire, 0x18);
 Adafruit_DRV2605 vib;
 uint8_t rateValue;
 uint8_t prevRateValue;
-bool heartRateStarted = 1;
-const int ledPin = LED_BUILTIN;
+bool heartRateStarted = 0;
 
 bool vibrating = false;
 
@@ -25,37 +24,25 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(ledPin, HIGH);
-
-  // Wait for 1000 milliseconds (1 second)
-  delay(200);
-
-  // Step 2: Turn the LED OFF
-  // LOW (0V or ground) turns the LED off
-  digitalWrite(ledPin, LOW);
-
-  // Wait for 1000 milliseconds (1 second)
-  delay(200);
-
-
 
   // Heart Rate
-  
   heartrate.getValue(A2);
   rateValue = heartrate.getRate();
-  if (rateValue > 0){
-    heartRateStarted = 1;
-  }else{
-    heartRateStarted = 0;
+  if (rateValue == 0){
+    if (!heartRateStarted) {
+      Serial.println("HeartRate:NULL");
+    }
+    else {
+      Serial.print("HeartRate:");
+      Serial.println(prevRateValue);
+      
+    }
   }
-  // Check to see if heart rate has been gotten at all
-  if(!heartRateStarted){
-    Serial.println("HeartRate:NULL");
-  }
-  // If it has, print a value
   else {
     Serial.print("HeartRate:");
     Serial.println(rateValue);
+    prevRateValue = rateValue;
+    heartRateStarted = 1;
   }
     
   
