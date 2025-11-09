@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Employee Sensor Monitoring Portal" />
+    <title>Employee Sensor Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Employee Sensor Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#">Employees</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Employee Info Section -->
+        <section id="employee-list">
+            <h2>Employee Information</h2>
+            
+            <div class="info-item">
+                <span class="info-label">Name:</span>
+                <span class="info-value">Alex Johnson</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">ID:</span>
+                <span class="info-value">E-1023</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Department:</span>
+                <span class="info-value">Engineering</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Sensor Type:</span>
+                <span class="info-value">Body Temp & Heart Rate</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Last Updated:</span>
+                <span class="info-value" id="last-updated">10:15 AM</span>
+            </div>
+        </section>
+
+        <!-- Sensor Data Section -->
+        <section id="sensor-data">
+            <h2>Sensor Data</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Temperature (°C)</th>
+                        <th>Heart Rate (BPM)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="sensor-table-body">
+                    <tr>
+                        <td>10:00 AM</td>
+                        <td>36.6</td>
+                        <td>72</td>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <td>10:05 AM</td>
+                        <td>36.7</td>
+                        <td>74</td>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <td>10:10 AM</td>
+                        <td>37.0</td>
+                        <td>80</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Employee Sensor Portal — All rights reserved.</p>
+    </footer>
+</body>
+</html>
