@@ -5,7 +5,6 @@ codebase can store structured sensor readings without having to worry
 about Redis-specific commands.  It exposes a small `SensorLogStore`
 class that knows how to push and retrieve JSON encoded readings.
 """
-from __future__ import annotations
 
 import json
 import os
@@ -85,28 +84,6 @@ class SensorLogStore:
     def _key(self, sensor_name: str) -> str:
         return f"{self._namespace}:{sensor_name}"
 
-    # ------------------------------------------------------------------
-    # Public API
-    # ------------------------------------------------------------------
-    def push(self, reading: SensorReading) -> None:
-        """Store a new reading in Redis.
-
-        The reading is serialized as JSON and added to the head of the list.
-        Using ``LPUSH`` keeps the command idempotent and allows consumers to
-        retrieve the most recent values quickly with ``LRANGE``.
-        """
-
-        key = self._key(reading.sensor_name)
-        self._redis.lpush(key, reading.to_json())
-
-    def bulk_push(self, readings: Iterable[SensorReading]) -> None:
-        """Push a batch of readings efficiently using a pipeline."""
-
-        pipeline = self._redis.pipeline()
-        for reading in readings:
-            pipeline.lpush(self._key(reading.sensor_name), reading.to_json())
-        pipeline.execute()
-
     def fetch_recent(self, sensor_name: str, limit: int = 256) -> List[SensorReading]:
         """Return the most recent readings for ``sensor_name``.
 
@@ -117,7 +94,6 @@ class SensorLogStore:
         limit:
             Maximum number of readings to return.
         """
-
         raw_entries = self._redis.lrange(self._key(sensor_name), 0, limit - 1)
         readings = [SensorReading.from_json(entry.decode("utf-8")) for entry in raw_entries]
         # Redis returns items in reverse chronological order because we push to
@@ -130,7 +106,7 @@ def create_redis_client() -> "redis.Redis":
     """Create a Redis client using environment variables for configuration."""
 
     host = os.getenv("REDIS_HOST", "localhost")
-    port = int(os.getenv("REDIS_PORT", "6379"))
+    port = int(os.getenv("REDIS_PORT", "10392"))
     db = int(os.getenv("REDIS_DB", "0"))
     password = os.getenv("REDIS_PASSWORD")
 
