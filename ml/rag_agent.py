@@ -1,23 +1,6 @@
-# ml/rag_agent.py
-"""Lightweight ReAct-style agent for monitoring sensor data.
-
-The original implementation depended on ``langgraph.prebuilt`` which in turn
-requires a tight coupling between the ``langgraph`` and ``langchain`` package
-versions.  In this environment the packages pulled in by ``pip install -r
-requirements.txt`` expose slightly older interfaces, causing an import error
-when ``create_react_agent`` tries to reference
-``langchain_core.tools.base._DirectlyInjectedToolArg``.  To remove that fragile
-dependency chain we provide a tiny, self-contained agent that implements the
-same "decide → call tool → observe → respond" workflow with plain LangChain
-primitives and a bit of orchestration code.
-
-The module exposes a single ``AGENT`` instance together with a ``main``
-function so ``python -m ml.rag_agent "question"`` keeps working as a CLI entry
-point.
-"""
-
 from __future__ import annotations
 
+import time
 import argparse
 import json
 import re
@@ -30,13 +13,18 @@ from tool.sensor_tool import detect_anomalies, sensor_data_retriever
 
 DEFAULT_MODEL = "nvidia/nvidia-nemotron-nano-9b-v2"
 
-SYSTEM_PROMPT = (
-    "You are a diagnostic AI monitoring system.\n"
-    "- Use 'sensor_data_retriever' to see current values.\n"
-    "- Use 'detect_anomalies' to check for abnormal behavior.\n"
-    "- Correlate multiple sensor readings when reasoning.\n"
-    "- Respond with concise technical summaries."
-)
+SYSTEM_PROMPT = """
+You are an agent that monitors sensors. 
+You have access to tools:
+- sensor_data_retriever(sensor_name): gets data for a given sensor.
+- detect_anomalies(sensor_name): detects anomalies in a sensor's data.
+
+When asked for a summary or to analyze something, always specify which sensor to use.
+Example:
+Call `sensor_data_retriever(sensor_name="HeartRate")`.
+Your options for sensor names are HeartRate, AccelY, Temp, AccelX, and AccelZ you must choose one whenever you analyze something.
+"""
+
 
 
 def _coerce_content(message: Any) -> str:
@@ -237,29 +225,26 @@ AGENT = build_agent()
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Interact with the sensor monitoring agent.")
-    parser.add_argument(
-        "question",
-        nargs="?",
-        default="Summarise the most recent sensor status.",
-        help="Diagnostic question to pass to the agent.",
-    )
-    parser.add_argument(
-        "--max-steps",
-        type=int,
-        default=3,
-        help="Maximum number of tool invocations the agent may perform.",
-    )
+    parser = argparse.ArgumentParser(description="Continuously monitor sensors.")
+    parser.add_argument("--interval", type=int, default=10,
+                        help="Polling interval in seconds.")
+    parser.add_argument("--max-steps", type=int, default=3,
+                        help="Maximum number of tool invocations per cycle.")
     args = parser.parse_args()
 
+    sensors = ["HeartRate", "AccelY", "Temp", "AccelX", "AccelZ"]
     agent = build_agent(max_iterations=args.max_steps)
-    try:
-        answer = agent.run(args.question)
-    except Exception as exc:  # pragma: no cover - defensive branch
-        raise SystemExit(f"Failed to run the agent: {exc}") from exc
 
-    print(answer)
-
+    print("🔁 Starting continuous sensor monitoring...\n")
+    while True:
+        for sensor in sensors:
+            question = f"Summarize the most recent status for {sensor}."
+            try:
+                answer = agent.run(question)
+                print(f"\n[{sensor}] {answer}")
+            except Exception as exc:
+                print(f"⚠️ Error on {sensor}: {exc}")
+        time.sleep(args.interval)
 
 if __name__ == "__main__":  # pragma: no cover
     main()
