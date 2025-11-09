@@ -55,9 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tableBody = document.getElementById("sensor-table-body");
 
         // Fetch live data from your endpoint
-        const response = await fetch("https://vibrator.d3llie.tech/data");
-        // if (!response.ok) throw new Error("Network response was not ok");
-
+        const response = await fetch("http://vibrator.d3llie.tech/data");
         const data = await response.json();
         console.log("Fetched data:", data);
 
