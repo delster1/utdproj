@@ -6,6 +6,10 @@ DFRobot_Heartrate heartrate(DIGITAL_MODE);
 DFRobot_LIS2DH12 acce(&Wire, 0x18);
 Adafruit_DRV2605 vib;
 uint8_t rateValue;
+uint8_t prevRateValue;
+bool heartRateStarted = 1;
+const int ledPin = LED_BUILTIN;
+
 
 
 void setup() {
@@ -18,20 +22,43 @@ void setup() {
   vib.begin();
   vib.setMode(DRV2605_MODE_REALTIME);
 
-  
+  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
+  digitalWrite(ledPin, HIGH);
+
+  // Wait for 1000 milliseconds (1 second)
+  delay(200);
+
+  // Step 2: Turn the LED OFF
+  // LOW (0V or ground) turns the LED off
+  digitalWrite(ledPin, LOW);
+
+  // Wait for 1000 milliseconds (1 second)
+  delay(200);
+
+
+
   // Heart Rate
-  
-  heartrate.getValue(A1);
+  heartrate.getValue(A2);
   rateValue = heartrate.getRate();
-  if(rateValue){
-    Serial.println("HeartRate:" + rateValue);
+  if (rateValue > 0){
+    heartRateStarted = 1;
+  }else{
+    heartRateStarted = 0;
   }
-  else {
+  // Check to see if heart rate has been gotten at all
+  if(!heartRateStarted){
     Serial.println("HeartRate:NULL");
   }
+  // If it has, print a value
+  else {
+    Serial.print("HeartRate:");
+    Serial.println(rateValue);
+  }
+    
+  
   Serial.flush();
 
   // Accel
@@ -57,7 +84,6 @@ void loop() {
   vib.setRealtimeValue(128); // val between 0 and 255 (or maybe 128 and 255?)
   delay(20);
   vib.setRealtimeValue(0);
-  delay(100);
 
 
   delay(20);

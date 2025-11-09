@@ -85,7 +85,7 @@ uint16_t DFRobot_Heartrate::analogGetRate(void)
         uint32_t difTime =  nowTim - lastTim;
         lastTim = nowTim;
 
-        if(difTime>300 || difTime<2000){
+        if(difTime>300 && difTime<2000){
             sampleTime[timeFlag++] = difTime;
             if(timeFlag > 9)timeFlag=0;
         }
@@ -142,7 +142,7 @@ uint16_t DFRobot_Heartrate::digitalGetRate(void)
         uint32_t difTime =  nowTim - lastTim;
         lastTim = nowTim;
         
-        if(difTime>300 || difTime<2000){
+        if(difTime>300 && difTime<2000){
             sampleTime[timeFlag++] = difTime;
             if(timeFlag > 9)timeFlag=0;
         }       
