@@ -16,10 +16,5 @@ void loop() {
   if(rateValue){
     Serial.println("Heartrate:" + String(rateValue));
   }
-
-
   readGyro(acce);
-
-
-
 }
