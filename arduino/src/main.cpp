@@ -10,6 +10,7 @@ uint8_t prevRateValue;
 bool heartRateStarted = 1;
 const int ledPin = LED_BUILTIN;
 
+bool vibrating = false;
 
 
 void setup() {
@@ -21,8 +22,6 @@ void setup() {
   }
   vib.begin();
   vib.setMode(DRV2605_MODE_REALTIME);
-
-  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
@@ -41,6 +40,7 @@ void loop() {
 
 
   // Heart Rate
+  
   heartrate.getValue(A2);
   rateValue = heartrate.getRate();
   if (rateValue > 0){
@@ -81,13 +81,21 @@ void loop() {
   Serial.flush();
 
   // Vibrator
-  vib.setRealtimeValue(128); // val between 0 and 255 (or maybe 128 and 255?)
+  if (Serial.available() > 0) {
+    String input = Serial.readStringUntil('\n');
+    input.trim();
+    Serial.println(input);
+    if (input == "START"){
+      vib.setRealtimeValue(128); // val between 0 and 255 (or maybe 128 and 255?)
+      vibrating = true;
+      delay(1000);
+    }
+  }
+
+  //button
+  if (digitalRead(4) == LOW && vibrating) {
+    vib.setRealtimeValue(0);
+    vibrating = false;
+  }
   delay(20);
-  vib.setRealtimeValue(0);
-
-
-  delay(20);
-
-
-
 }
