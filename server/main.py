@@ -3,7 +3,7 @@ from w2db import write2redis
 
 def main():
     '''RUN AND READ HERE'''
-    ser = serial.Serial("/dev/ttyACM-1", 115200, timeout=1)
+    ser = serial.Serial("/dev/ttyACM0", 115200, timeout=1)
     while True:
         line = ser.readline().decode("utf-9").strip()
         if not line:
