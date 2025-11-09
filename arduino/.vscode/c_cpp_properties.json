@@ -8,32 +8,32 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/Users/thomas/Code/HackUTD/arduino/src",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/cores/arduino",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/variants/standard",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
-                "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/variants/standard",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/Users/thomas/Code/HackUTD/arduino/src",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/cores/arduino",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/variants/standard",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
-                    "/Users/thomas/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                     ""
                 ]
             },
             "defines": [
-                "PLATFORMIO=60116",
+                "PLATFORMIO=60118",
                 "ARDUINO_AVR_UNO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
@@ -43,7 +43,7 @@
             ],
             "cStandard": "gnu11",
             "cppStandard": "gnu++11",
-            "compilerPath": "/Users/thomas/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerPath": "C:/Users/natha/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
             "compilerArgs": [
                 "-mmcu=atmega328p",
                 ""
