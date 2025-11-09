@@ -54,50 +54,63 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", async () => {
     const tableBody = document.getElementById("sensor-table-body");
 
-    try {
         // Fetch live data from your endpoint
-        const response = await fetch("http://vibrator.d3llie.tech/data");
-        if (!response.ok) throw new Error("Network response was not ok");
+        const response = await fetch("https://vibrator.d3llie.tech/data");
+        // if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
         console.log("Fetched data:", data);
 
-        // Clear table
+        // Access sensor_outputs
+        const outputs = data.sensor_outputs;
+        if (!outputs) throw new Error("Missing sensor_outputs in response");
+
+        // Get all arrays
+        const temps = outputs.Temp || [];
+        const heartRates = outputs.HeartRate || [];
+        const accelX = outputs.AccelX || [];
+        const accelY = outputs.AccelY || [];
+        const accelZ = outputs.AccelZ || [];
+
+        // Clear old table rows
         tableBody.innerHTML = "";
 
-        // Loop through each reading (assuming array of objects)
-        data.forEach((reading) => {
-            const { Temp, HeartRate, AccelX, AccelY, AccelZ } = reading;
+        // Figure out how many readings we have (based on the length of Temp)
+        const numReadings = temps.length;
+
+        for (let i = 0; i < numReadings; i++) {
+            const temp = temps[i];
+            const hr = heartRates[i];
+            const ax = accelX[i];
+            const ay = accelY[i];
+            const az = accelZ[i];
 
             // Determine status
             let statusText = "Normal";
             let statusClass = "normal";
 
-            if (HeartRate > 100 || Temp > 38) {
+            if (hr > 100 || temp > 38) {
                 statusText = "Danger";
                 statusClass = "danger";
-            } else if (HeartRate > 85 || Temp > 37.5) {
+            } else if (hr > 85 || temp > 37.5) {
                 statusText = "Warning";
                 statusClass = "warning";
             }
 
-            // Create row
+            // Create table row
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${Temp.toFixed(2)}</td>
-                <td>${HeartRate.toFixed(2)}</td>
-                <td>(${AccelX.toFixed(2)}, ${AccelY.toFixed(2)}, ${AccelZ.toFixed(2)})</td>
+                <td>${temp.toFixed(2)}</td>
+                <td>${hr.toFixed(2)}</td>
+                <td>(${ax.toFixed(2)}, ${ay.toFixed(2)}, ${az.toFixed(2)})</td>
                 <td class="status ${statusClass}">${statusText}</td>
             `;
 
             tableBody.appendChild(row);
-        });
+        }
 
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        tableBody.innerHTML = `<tr><td colspan="4">Error loading data</td></tr>`;
-    }
 });
+
 document.addEventListener("DOMContentLoaded", () => {
     // Check if the employee-name element exists (so it only runs on the right page)
     const nameElement = document.getElementById("employee-name");
