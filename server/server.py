@@ -4,12 +4,23 @@ from __future__ import annotations
 import subprocess
 from ml.rag_agent import main as start_rag_agent
 
+from server.w2db import r
+
 from flask import Flask, jsonify, request
 import os
 
 from server.redis2 import SensorLogStore, reading_from_dict, get_latest_sensor_data
 
+from flask_cors import CORS
 app = Flask(__name__)
+
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://localhost:4321", "https://d3llie.tech"],
+        "supports_credentials": True
+    }
+})
+
 log_store = SensorLogStore()
 
 
@@ -24,9 +35,26 @@ def vibrate() :
 
 @app.route("/data")
 def get_data():
-    return get_latest_sensor_data()
 
+    try:
+        sensor_names = ["HeartRate", "Temp", "AccelX", "AccelY", "AccelZ"]
+        data = {}
 
+        for sensor_name in sensor_names:
+            # Get last 6 values from Redis list
+            raw_entries = r.lrange(sensor_name, 0, 5)
+            # Decode and convert to float if possible
+            values = []
+            for e in raw_entries:
+                try:
+                    values.append(float(e.decode() if isinstance(e, bytes) else e))
+                except:
+                    continue
+            data[sensor_name] = list(reversed(values))  # Chronological order
+
+        return jsonify({"sensor_outputs": data}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/receive", methods=["POST"])
 def process_json():
@@ -58,18 +86,5 @@ def process_json():
 
 
 if __name__ == "__main__":
-    rag_proc = subprocess.Popen(
-    ["python", "-m", "ml.rag_agent"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print(f"✅ Started RAG agent with PID {rag_proc.pid}")
 
-    try:
-        # 🚦 Run Flask app (blocking)
-        app.run(host="0.0.0.0", port=5000, debug=True)
-    finally:
-        # 💀 When Flask stops, also stop the RAG agent
-        print("🛑 Shutting down RAG agent...")
-        rag_proc.terminate()
-        rag_proc.wait(timeout=5)
+    app.run(host="0.0.0.0", port=5000, debug=True)

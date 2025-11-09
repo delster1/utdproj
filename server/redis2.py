@@ -96,7 +96,7 @@ class SensorLogStore:
         limit:
             Maximum number of readings to return.
         """
-        for key in self._redis.scan_iter("user:*"):
+        for key in self._redis.lrange(self._key(sensor_name), 0, limit - 1):
             print(key)
         raw_entries = self._redis.lrange(self._key(sensor_name), 0, limit - 1)
         print(raw_entries)
@@ -131,14 +131,13 @@ def reading_from_dict(payload: dict) -> SensorReading:
         timestamp=datetime.now(timezone.utc),
     )
 
-def get_latest_sensor_data(limit=6):
+def get_latest_sensor_data(redis_host, limit=6):
 
     sensor_names = ["HeartRate", "Temperature", "AccelX", "AccelY", "AccelZ"]
-    store = SensorLogStore()
     my_json = {}
 
     for sensor_name in sensor_names:
-        readings = store.fetch_recent(sensor_name, limit=limit)
+        readings = r.scan_iter("*")
         values = [r.sensor_output for r in readings]
         my_json[sensor_name] = values  # store as array of floats
 
