@@ -3,3 +3,9 @@ __pycache__/
 arduino/.pio/build/*
 server/__pycache__/*
 arduino/.vscode/extensions.json
+arduino/.pio
+arduino/.vscode/.browse.c_cpp.db*
+arduino/.vscode/c_cpp_properties.json
+arduino/.vscode/launch.json
+arduino/.vscode/ipch
+arduino/.pio/build/uno/*
