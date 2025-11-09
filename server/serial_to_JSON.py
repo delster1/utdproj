@@ -1,6 +1,6 @@
 import serial
 import json 
-
+import requests
 
 def serial_to_JSON(data):
     try:
@@ -11,9 +11,9 @@ def serial_to_JSON(data):
         }
         json_str = json.dumps(new_data)
         print(json_str)
+        return json_str
     except ValueError:
         print(f"Skipping invalid line: {data}")
-
 
 def main():
     '''RUN AND READ HERE'''
@@ -23,5 +23,6 @@ def main():
         if not line:
             continue
         else:
-            serial_to_JSON(line)
+            jsonline = serial_to_JSON(line)
+        requests.post("http://utd.d3llie.tech/recieve", json=jsonline)
 main()
