@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "DFRobot_Heartrate.h"
 
 DFRobot_Heartrate heartrate(DIGITAL_MODE);
@@ -14,8 +13,5 @@ void loop() {
   if(rateValue){
     Serial.println(rateValue);
   }
-  delay(100);
-
-
-
+  delay(20);
 }
