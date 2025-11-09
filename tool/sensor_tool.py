@@ -75,24 +75,3 @@ def detect_anomalies(sensor_name: str, limit: int = 128) -> str:
         f"reconstruction_error={loss:.4f}, status={status}"
     )
 
-
-@tool("sensor_data_retriever")
-def sensor_data_retriever(sensor_name: str, limit: int = 10) -> str:
-    """Return a compact table with the latest sensor readings."""
-
-    store = SensorLogStore()
-    readings = store.fetch_recent(sensor_name, limit=limit)
-    if not readings:
-        return f"No readings found for {sensor_name}"
-
-    lines = ["timestamp,value"]
-    for reading in readings[-limit:]:
-        timestamp = reading.timestamp
-        if timestamp.tzinfo is None:
-            timestamp = timestamp.replace(tzinfo=timezone.utc)
-        else:
-            timestamp = timestamp.astimezone(timezone.utc)
-        lines.append(f"{timestamp.isoformat()},{reading.sensor_output:.4f}")
-
-    return "\n".join(lines)
-
