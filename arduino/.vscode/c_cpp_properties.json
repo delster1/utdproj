@@ -8,11 +8,16 @@
         {
             "name": "PlatformIO",
             "includePath": [
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/include",
                 "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/src",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_LIS2DH12",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/variants/standard",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_BusIO",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_DRV2605L",
+                "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_Heartrate",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
@@ -21,11 +26,16 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/include",
                     "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/src",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_LIS2DH12",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_BusIO",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/Adafruit_DRV2605L",
+                    "C:/Users/natha/Desktop/Local_Projects/utdproj/arduino/lib/DFRobot_Heartrate",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "C:/Users/natha/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",

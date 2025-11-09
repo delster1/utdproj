@@ -50,13 +50,13 @@ AccelReading readGyro(DFRobot_LIS2DH12 acce) {
     ay = acce.readAccY(); // Get the acceleration in the y direction
     az = acce.readAccZ(); // Get the acceleration in the z direction
     // Print acceleration
-    Serial.print("Acceleration x: ");
-    Serial.print(ax);
-    Serial.print(" mg\t  y: ");
-    Serial.print(ay);
-    Serial.print(" mg\t  z: ");
-    Serial.print(az);
-    Serial.println(" mg");
+    // Serial.print("Acceleration x: ");
+    // Serial.print(ax);
+    // Serial.print(" mg\t  y: ");
+    // Serial.print(ay);
+    // Serial.print(" mg\t  z: ");
+    // Serial.print(az);
+    // Serial.println(" mg");
     delay(300);
 
     AccelReading r;
