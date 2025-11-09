@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "DFRobot_Heartrate.h"
 #include "accelerometer.h"
 
@@ -17,7 +16,7 @@ void loop() {
   if(rateValue){
     Serial.println(rateValue);
   }
-  delay(100);
+
 
   readGyro(acce);
 
