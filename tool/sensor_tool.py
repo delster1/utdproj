@@ -92,6 +92,5 @@ def sensor_data_retriever(sensor_name: str, limit: int = 10) -> str:
         else:
             timestamp = timestamp.astimezone(timezone.utc)
         lines.append(f"{timestamp.isoformat()},{reading.sensor_output:.4f}")
-
     return "\n".join(lines)
 
