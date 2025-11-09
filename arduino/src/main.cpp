@@ -5,6 +5,7 @@
 DFRobot_Heartrate heartrate(DIGITAL_MODE);
 DFRobot_LIS2DH12 acce(&Wire, 0x18);
 Adafruit_DRV2605 vib;
+uint8_t rateValue;
 
 
 void setup() {
@@ -16,11 +17,13 @@ void setup() {
   }
   vib.begin();
   vib.setMode(DRV2605_MODE_REALTIME);
+
+  
 }
 
 void loop() {
   // Heart Rate
-  uint8_t rateValue;
+  
   heartrate.getValue(A1);
   rateValue = heartrate.getRate();
   if(rateValue){
@@ -34,10 +37,12 @@ void loop() {
   // Accel
   AccelReading accelReading;
   accelReading = readGyro(acce);
-  Serial.println("AccelX:"+accelReading.x);
-  Serial.println("AccelY:"+accelReading.y);
-  Serial.println("AccelZ:"+accelReading.z);
-  Serial.flush();
+  Serial.print("AccelX:");
+  Serial.println(accelReading.x);
+  Serial.print("AccelY:");
+  Serial.println(accelReading.y);
+  Serial.print("AccelZ:");
+  Serial.println(accelReading.z);
 
   // Temp
   uint16_t val;
@@ -49,9 +54,9 @@ void loop() {
   Serial.flush();
 
   // Vibrator
-  vib.setRealtimeValue(255); // val between 0 and 255 (or maybe 128 and 255?)
-  delay(100);
-  vib.setRealtimeValue(128);
+  vib.setRealtimeValue(128); // val between 0 and 255 (or maybe 128 and 255?)
+  delay(20);
+  vib.setRealtimeValue(0);
   delay(100);
 
 

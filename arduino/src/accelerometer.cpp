@@ -24,7 +24,7 @@ void setupAccel(DFRobot_LIS2DH12 acce) {
                 eLIS2DH12_8g,/< ±8g>/
                 eLIS2DH12_16g,/< ±16g>/
     */
-    acce.setRange(/*Range = */DFRobot_LIS2DH12::eLIS2DH12_16g);
+    acce.setRange(/*Range = */DFRobot_LIS2DH12::eLIS2DH12_8g);
 
     /**
         Set data measurement rate：
