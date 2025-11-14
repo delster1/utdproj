@@ -171,8 +171,6 @@ def main():
     LOCAL_PORT = 63792
     HOSTNAME = "redis.d3llie.tech"
     LOCAL_HOST = "127.0.0.1"
-    SERVICE_TOKEN_SECRET="4e0f730142c2a5a1e2889125de517265ab7430e42c00e39778908953a5f8ed5e"
-    SERVICE_TOKEN_ID="5f5f6f7f70032ed235556225e80bb9b1.access"
     
     
     cloudflared_cmd = [
