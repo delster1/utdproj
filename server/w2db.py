@@ -1,6 +1,8 @@
 import os
 import redis
 import json
+import subprocess
+import 
 def write2redis(jsonline): 
         LOCAL_PORT = 63792
         HOSTNAME = "redis.d3llie.tech"
